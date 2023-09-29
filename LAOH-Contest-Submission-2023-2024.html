@@ -16,8 +16,8 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
-    /* Style for the blue and underlined words */
-    .clickable-word {
+    /* Style for the blue and underlined word */
+    #aristocracy {
       color: blue;
       text-decoration: underline;
       cursor: pointer;
@@ -34,16 +34,13 @@
     <h2>Constance Markievicz: A Heroine in Ireland's Struggle for Independence</h2>
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Countess_Constance_Markiewicz-1.1.2_%28cropped%29.jpg/220px-Countess_Constance_Markiewicz-1.1.2_%28cropped%29.jpg" alt="Constance Markievicz">
     <p>Constance Markievicz was born February 4, 1868, in London, England and she died July 15, 1927, Dublin, Ireland.</p>
-    <p>She was born into <span class="clickable-word" id="aristocracy">aristocracy</span> and grew up in her family's estate.</p>
-    <p>In 1903 Constance moved to Dublin where her interests soon turned from art to Irish politics. At age 40, in 1908, she embraced Irish nationalism, joining the revolutionary women’s group <span class="clickable-word" id="inghinidhe">Inghinidhe na hÉireann</span> and the Sinn Féin political party.</p>
+    <p>She was born into <span id="aristocracy">aristocracy</span> and grew up in her family's estate.</p>
+    <p>Markievicz's legacy as a feminist and revolutionary remains influential, and her story serves as a reminder of the strength of character and determination that can shape history.</p>
   </section>
 
-  <!-- Hidden pop-up definitions -->
-  <div id="popup-aristocracy">
+  <!-- Hidden pop-up definition -->
+  <div id="popup">
     <p><strong>Aristocracy:</strong> The highest class in certain societies, typically comprising those with inherited wealth, power, and privilege.</p>
-  </div>
-  <div id="popup-inghinidhe">
-    <p><strong>Inghinidhe na hÉireann:</strong> Translation: Daughters of Ireland</p>
   </div>
 
   <footer>
@@ -51,26 +48,17 @@
   </footer>
 
   <script>
-    // JavaScript to toggle the visibility of the pop-up definitions
+    // JavaScript to toggle the visibility of the pop-up definition
     const aristocracyWord = document.getElementById("aristocracy");
-    const inghinidheWord = document.getElementById("inghinidhe");
-    const popupAristocracy = document.getElementById("popup-aristocracy");
-    const popupInghinidhe = document.getElementById("popup-inghinidhe");
+    const popup = document.getElementById("popup");
 
     aristocracyWord.addEventListener("click", () => {
-      popupAristocracy.style.display = "block";
-      popupInghinidhe.style.display = "none"; // Hide other pop-ups
-    });
-
-    inghinidheWord.addEventListener("click", () => {
-      popupInghinidhe.style.display = "block";
-      popupAristocracy.style.display = "none"; // Hide other pop-ups
+      popup.style.display = "block";
     });
 
     document.addEventListener("click", (event) => {
-      if (event.target !== aristocracyWord && event.target !== inghinidheWord && event.target !== popupAristocracy && event.target !== popupInghinidhe) {
-        popupAristocracy.style.display = "none";
-        popupInghinidhe.style.display = "none";
+      if (event.target !== aristocracyWord && event.target !== popup) {
+        popup.style.display = "none";
       }
     });
   </script>
