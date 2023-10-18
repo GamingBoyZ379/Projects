@@ -96,4 +96,33 @@
     <p><strong>Na Fianna Éireann:</strong> Translation: Soldiers of Ireland</p>
   </div>
   <footer>
-    <p>&copy; J
+    <p>&copy; Jaden News. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // JavaScript to toggle the visibility of the pop-up definitions
+    const clickableWords = document.querySelectorAll(".clickable-word");
+    const popups = document.querySelectorAll(".popup-definition");
+
+    clickableWords.forEach((word, index) => {
+      word.addEventListener("click", () => {
+        popups.forEach((popup, popupIndex) => {
+          if (index === popupIndex) {
+            popup.style.display = "block";
+          } else {
+            popup.style.display = "none";
+          }
+        });
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!event.target.classList.contains("clickable-word")) {
+        popups.forEach((popup) => {
+          popup.style.display = "none";
+        });
+      }
+    });
+  </script>
+</body>
+</html>
