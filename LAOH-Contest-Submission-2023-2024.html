@@ -53,8 +53,7 @@
     }
 
     /* Style for the pop-up definitions */
-    #popup-aristocracy,
-    #popup-inghinidhe {
+    .popup-definition {
       display: none;
       background-color: white;
       border: 1px solid #ccc;
@@ -83,43 +82,18 @@
     <p>Constance Markievicz was born February 4, 1868, in London, England, and she died on July 15, 1927, in Dublin, Ireland.</p>
     <p>She was born into <span class="clickable-word" id="aristocracy">aristocracy</span> and grew up in her family's estate.</p>
     <p>In 1903, Constance moved to Dublin, where her interests soon turned from art to Irish politics. At age 40, in 1908, she embraced Irish nationalism, joining the revolutionary women’s group <span class="clickable-word" id="inghinidhe">Inghinidhe na hÉireann</span> and the Sinn Féin political party.</p>
-    <p>The following year she formed Na Fianna Éireann , a republican organization loosely based on the Boy Scouts, in which young boys were trained to be nationalist soldiers.</p>
+    <p>The following year she formed <span class="clickable-word" id="na-fianna-eireann">Na Fianna Éireann</span>, a republican organization loosely based on the Boy Scouts, in which young boys were trained to be nationalist soldiers.</p>
   </div>
 
   <!-- Hidden pop-up definitions -->
-  <div id="popup-aristocracy">
+  <div class="popup-definition" id="popup-aristocracy">
     <p><strong>Aristocracy:</strong> The highest class in certain societies, typically comprising those with inherited wealth, power, and privilege.</p>
   </div>
-  <div id="popup-inghinidhe">
+  <div class="popup-definition" id="popup-inghinidhe">
     <p><strong>Inghinidhe na hÉireann:</strong> Translation: Daughters of Ireland</p>
   </div>
+  <div class="popup-definition" id="popup-na-fianna-eireann">
+    <p><strong>Na Fianna Éireann:</strong> Translation: Soldiers of Ireland</p>
+  </div>
   <footer>
-    <p>&copy; Jaden News. All rights reserved.</p>
-  </footer>
-
-  <script>
-    // JavaScript to toggle the visibility of the pop-up definitions
-    const aristocracyWord = document.getElementById("aristocracy");
-    const inghinidheWord = document.getElementById("inghinidhe");
-    const popupAristocracy = document.getElementById("popup-aristocracy");
-    const popupInghinidhe = document.getElementById("popup-inghinidhe");
-
-    aristocracyWord.addEventListener("click", () => {
-      popupAristocracy.style.display = "block";
-      popupInghinidhe.style.display = "none"; // Hide other pop-ups
-    });
-
-    inghinidheWord.addEventListener("click", () => {
-      popupInghinidhe.style.display = "block";
-      popupAristocracy.style.display = "none"; // Hide other pop-ups
-    });
-
-    document.addEventListener("click", (event) => {
-      if (event.target !== aristocracyWord && event.target !== inghinidheWord && event.target !== popupAristocracy && event.target !== popupInghinidhe) {
-        popupAristocracy.style.display = "none";
-        popupInghinidhe.style.display = "none";
-      }
-    });
-  </script>
-</body>
-</html>
+    <p>&copy; J
