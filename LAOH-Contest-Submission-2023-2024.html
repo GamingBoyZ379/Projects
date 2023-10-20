@@ -13,14 +13,12 @@
       line-height: 1.6;
       background-color: #f7f7f7;
     }
-
     header {
       background-color: #333;
       color: white;
       text-align: center;
       padding: 10px;
     }
-
     .article {
       max-width: 600px;
       margin: 0 auto;
@@ -28,31 +26,25 @@
       padding: 20px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
-
     h2 {
       font-size: 24px;
       font-weight: bold;
       margin-bottom: 10px;
     }
-
     img {
       max-width: 100%;
       height: auto;
     }
-
     p {
       font-size: 16px;
       margin-bottom: 10px;
     }
-
     /* Style for the blue and underlined words */
     .clickable-word {
       color: blue;
       text-decoration: underline;
       cursor: pointer;
-      position: relative;
     }
-
     /* Style for the pop-up definitions */
     .popup-definition {
       display: none;
@@ -60,12 +52,7 @@
       border: 1px solid #ccc;
       padding: 10px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      position: absolute;
-      z-index: 1;
-      top: 20px;
-      left: 0;
     }
-
     /* Footer style */
     footer {
       text-align: center;
@@ -80,47 +67,52 @@
   <header>
     <h1>Jaden News</h1>
   </header>
-
   <div class="article">
     <h2>Constance Markievicz: A Heroine in Ireland's Struggle for Independence</h2>
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Countess_Constance_Markiewicz-1.1.2_%28cropped%29.jpg/220px-Countess_Constance_Markiewicz-1.1.2_%28cropped%29.jpg" alt="Constance Markievicz">
     <p>Constance Markievicz was born February 4, 1868, in London, England, and she died on July 15, 1927, in Dublin, Ireland.</p>
     <p>She was born into <span class="clickable-word" id="aristocracy">aristocracy</span> and grew up in her family's estate.</p>
-    <div class="popup-definition" id="popup-aristocracy">The highest class in certain societies, typically comprising those with inherited wealth, power, and privilege.</div>
     <p>In 1903, Constance moved to Dublin, where her interests soon turned from art to Irish politics. At age 40, in 1908, she embraced Irish nationalism, joining the revolutionary women’s group <span class="clickable-word" id="inghinidhe">Inghinidhe na hÉireann</span> and the Sinn Féin political party.</p>
-    <div class="popup-definition" id="popup-inghinidhe">Translation: Daughters of Ireland</div>
     <p>The following year she formed <span class="clickable-word" id="na-fianna-eireann">Na Fianna Éireann</span>, a republican organization loosely based on the Boy Scouts, in which young boys were trained to be nationalist soldiers.</p>
-    <div class="popup-definition" id="popup-na-fianna-eireann">Translation: Soldiers of Ireland</div>
     <p>In 1911 she was arrested for demonstrating against King George V’s visit to Ireland. This was her first arrest.</p>
     <p>In April 1916 Markievicz took part in the Easter Rising in Dublin against British government in Ireland. After the general surrender, she was arrested for the second time and locked in prison.</p>
     <p>Though many women had participated in the uprising, Markievicz was the only one to be put in court. She was sentenced to death, but the sentence was changed to a lifetime of penal servitude because she was a woman.</p>
     <p>The following year her sentence was pardoned and Markievicz was released, but she soon ended up back in jail for supposed participation in a plot against the British government.</p>
-    <p>In December 1918, while still in prison, Markievicz was elected to the House of Commons as the representative for Dublin’s St. Patrick’s division. Along with the other members of Sinn Féin, she refused to swear a vow of allegiance to the king and, thus, did not take her seat. Instead, under the leadership of Eamon de Valera, the Irish republicans set up their own provisional government, Dáil Éireann.</p>
+    <p>In December 1918, while still carrying out a prison sentence, Markievicz was elected to the House of Commons as the representative for Dublin’s St. Patrick’s division. Along with the other members of Sinn Féin, she refused to swear an oath of allegiance to the king and, thus, did not take her seat. Instead, under the leadership of Eamon de Valera, the Irish republicans set up their own provisional government, Dáil Éireann.</p>
     <p>After she was released, Markievicz served in the first Dáil Éireann as the minister of labour, a position she held from 1919 until she was defeated in the 1922 elections. That same year the Irish Free State was established, and Dáil Éireann was turned into the lower house of the Oireachtas (Irish parliament). Markievicz was elected to the Dáil in the 1923 general election but, she again refused to swear allegiance to the king and did not take her seat. Instead, she devoted herself to charity work. Markievicz joined de Valera’s Fianna Fáil party on its founding in 1926 and was again elected to the Dáil in 1927. She died a month later, without having taken her seat.</p>
   </div>
 
   <!-- Hidden pop-up definitions -->
+  <div class="popup-definition" id="popup-aristocracy">
+    <p><strong>Aristocracy:</strong> The highest class in certain societies, typically comprising those with inherited wealth, power, and privilege.</p>
+  </div>
+  <div class="popup-definition" id="popup-inghinidhe">
+    <p><strong>Inghinidhe na hÉireann:</strong> Translation: Daughters of Ireland</p>
+  </div>
+  <div class="popup-definition" id="popup-na-fianna-eireann">
+    <p><strong>Na Fianna Éireann:</strong> Translation: Soldiers of Ireland</p>
+  </div>
+
   <footer>
     <p>&copy; Jaden News. All rights reserved.</p>
   </footer>
-
   <script>
     // JavaScript to toggle the visibility of the pop-up definitions
     const clickableWords = document.querySelectorAll(".clickable-word");
-    clickableWords.forEach((word) => {
+    const popups = document.querySelectorAll(".popup-definition");
+    clickableWords.forEach((word, index) => {
       word.addEventListener("click", () => {
-        const popup = word.nextElementSibling;
-        if (popup.style.display === "block") {
-          popup.style.display = "none";
-        } else {
-          popup.style.display = "block";
-        }
+        popups.forEach((popup, popupIndex) => {
+          if (index === popupIndex) {
+            popup.style display = "block";
+          } else {
+            popup.style.display = "none";
+          }
+        });
       });
     });
-
     document.addEventListener("click", (event) => {
       if (!event.target.classList.contains("clickable-word")) {
-        const popups = document.querySelectorAll(".popup-definition");
         popups.forEach((popup) => {
           popup.style.display = "none";
         });
