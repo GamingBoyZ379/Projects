@@ -13,6 +13,7 @@
             height: 100vh;
             background-color: #f4f4f4;
             margin: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .container {
             text-align: center;
@@ -21,6 +22,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 1000px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .video-frame {
             width: 100%;
@@ -42,9 +44,38 @@
             margin-top: 10px;
             border-radius: 5px;
         }
+        .dark-mode-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark-mode-button:hover {
+            background-color: #444;
+        }
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #000;
+            color: white;
+        }
+        .container.dark-mode {
+            background-color: #444;
+            color: white;
+        }
+        .video-frame.dark-mode {
+            background-color: #000;
+        }
     </style>
 </head>
 <body>
+    <button class="dark-mode-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
     <div class="container">
         <div class="video-frame">
             <video width="100%" height="100%" controls>
@@ -70,31 +101,37 @@
             { name: "Golgi Apparatus", description: "The Golgi apparatus functions as the cell's packaging and distribution center. It modifies, sorts, and packages proteins and lipids for transport to different destinations within the cell or for secretion. The Golgi also plays a role in the production of lysosomes and certain carbohydrates.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336899838280859691/Golgi-apparatus-Golgi-bodies-or-Golgi-complex-Diagram.png?ex=67a57c7f&is=67a42aff&hm=531daac51c91d0c99da9c624e4e92a8f55accff5746c1e18242e8e1ff4dc77a7&" },
             { name: "Lysosomes", description: "Lysosomes are membrane-bound organelles containing digestive enzymes that break down waste materials, cellular debris, and invading pathogens. They play an essential role in intracellular digestion and recycling, helping to maintain cellular health through autophagy.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336899870778327091/Lysosomes-Diagram.png?ex=67a57c87&is=67a42b07&hm=3e08f09031b3536eb637a7ae18036bc96bc31c44aaa97c0b59f00893d2ed6e93&" },
             { name: "Vacuole", description: "The vacuole is a large, membrane-bound organelle found in plant and fungal cells, as well as some animal and protist cells. It serves as a storage compartment for water, nutrients, and waste products. In plant cells, the central vacuole maintains cell turgor pressure, which is essential for structural support. Vacuoles also play a role in isolating harmful substances and aiding in cellular digestion.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336900146868523099/Vacuoles-Diagram.png?ex=67a57cc9&is=67a42b49&hm=c1414697ad9eced47d2ee47fd1d9f4f78d35ffede4174c2679a51f6a33fd713f&" },
-            { name: "Cell Membrane", description: "The cell membrane, also known as the plasma membrane, is a selectively permeable barrier that surrounds the cell. It consists of a phospholipid bilayer with embedded proteins, allowing the regulation of substances entering and exiting the cell. It also plays a role in cell communication and signaling.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336900676957110334/Plasma-membrane-Cell-membrane-Diagram.png?ex=67a57d47&is=67a42bc7&hm=2f05d57f0b964cde8e80480a8f4d2f1892c1b37049504bd06c4bb6adbb4810b9&" },
+            { name: "Cell Membrane", description: "The cell membrane is a selectively permeable barrier that surrounds the cell, separating its internal environment from the external surroundings. It is composed of a phospholipid bilayer with embedded proteins, which regulate the movement of ions, nutrients, and waste products in and out of the cell. The cell membrane also plays a role in cell communication and signaling.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336913759448600616/plasma_membrane-58a617c53df78c345b5efb37.png?ex=67a58976&is=67a437f6&hm=207b0c1457c924d18eec047036779f394765e40d9877b2b26e1555cbb87fab11&" },
             { name: "Cytoplasm", description: "The cytoplasm is the gel-like substance that fills the cell, providing a medium for biochemical reactions and supporting organelles. It contains cytosol, enzymes, nutrients, and various cellular structures essential for the cell's functions.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336899725198229614/Cytoplasm-Diagram.png?ex=67a57c64&is=67a42ae4&hm=dadf78b47e96e6ed1a3429c91f1934b420b028aa0fe91baf2fbc2688eabb23b3&" },
             { name: "Cytoskeleton", description: "The cytoskeleton is a complex network of protein filaments that provides structural support, aids in intracellular transport, and enables cell movement. It consists of microtubules, microfilaments, and intermediate filaments, all working together to maintain cell shape and facilitate cellular processes.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336899899790196866/Cytoskeleton-Diagram.png?ex=67a57c8e&is=67a42b0e&hm=5d8b49ed5a4881ffd6623d39e51d4679bebf33d1d2875aceed23969418dd1d1d&" }
-    ];
+   ];
 
-        let currentIndex = 0;
+        let currentOrganelle = 0;
 
         function updateOrganelle() {
-            const organelle = organelles[currentIndex];
-            document.getElementById('organelles-name').textContent = organelle.name;
-            document.getElementById('organelles-description').textContent = organelle.description;
-            document.getElementById('organelles-image').src = organelle.image;
-        }
-
-        function prevOrganelle() {
-            currentIndex = (currentIndex - 1 + organelles.length) % organelles.length;
-            updateOrganelle();
+            const organelle = organelles[currentOrganelle];
+            document.getElementById("organelles-name").textContent = organelle.name;
+            document.getElementById("organelles-description").textContent = organelle.description;
+            document.getElementById("organelles-image").src = organelle.image;
         }
 
         function nextOrganelle() {
-            currentIndex = (currentIndex + 1) % organelles.length;
+            currentOrganelle = (currentOrganelle + 1) % organelles.length;
             updateOrganelle();
         }
 
-        updateOrganelle();
+        function prevOrganelle() {
+            currentOrganelle = (currentOrganelle - 1 + organelles.length) % organelles.length;
+            updateOrganelle();
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            document.querySelector(".container").classList.toggle("dark-mode");
+            document.querySelector(".video-frame").classList.toggle("dark-mode");
+        }
+
+        updateOrganelle();  // Initial update when the page loads
     </script>
 </body>
 </html>
