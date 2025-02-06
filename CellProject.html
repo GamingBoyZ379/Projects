@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cell Organelles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+        }
+        .video-frame {
+            width: 100%;
+            height: 450px;
+            background: #ddd;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .arrow {
+            cursor: pointer;
+            font-size: 24px;
+            padding: 10px;
+        }
+        img {
+            width: 100%;
+            max-width: 300px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="video-frame">
+            <video width="100%" height="100%" controls>
+                <source src="https://cdn.discordapp.com/attachments/856935997787209738/1336906514585358447/FUWAMOCO_vs_Kendrick_Lamar.mp4?ex=67a582b7&is=67a43137&hm=e9909118403aff623d63862a0afd1cafeb2a1fb7184722ce8d42ff02ce8d64cd&">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <h1 id="organelles-name"></h1>
+        <p id="organelles-description"></p>
+        <img id="organelles-image" src="" alt="Organelle Image">
+        <div>
+            <span class="arrow" onclick="prevOrganelle()">⬅</span>
+            <span class="arrow" onclick="nextOrganelle()">➡</span>
+        </div>
+    </div>
+
+    <script>
+        const organelles = [
+            { name: "Nucleus", description: "The nucleus is the command center of the cell, housing genetic material in the form of DNA. It controls all cell activities, including growth, metabolism, and reproduction. The nucleus is surrounded by a double membrane called the nuclear envelope, which has pores that regulate the exchange of materials between the nucleus and cytoplasm. Inside the nucleus is the nucleolus, where ribosomes are assembled.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336899662648578129/Nucleus-Diagram.png?ex=67a57c55&is=67a42ad5&hm=42a6aa34c8ac6b4d87f1852a54f16dad86bccb06f1d5d52d4d408f2ed6058d5a&" },
+            { name: "Mitochondria", description: "Mitochondria are the powerhouses of the cell, responsible for generating ATP through cellular respiration. They have a unique double membrane structure and their own DNA, allowing them to produce essential proteins. Mitochondria play a crucial role in energy metabolism, apoptosis, and other cellular processes.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336899745624625255/Mitochondria-Diagram.png?ex=67a57c69&is=67a42ae9&hm=e3aecad7fa570f56e25087415a4d4679cf575ddeeace5c1d4c84ecee1fd878d0&" },
+            { name: "Ribosomes", description: "Ribosomes are molecular machines that synthesize proteins by translating genetic information from messenger RNA. They can be found floating freely in the cytoplasm or attached to the rough endoplasmic reticulum. Ribosomes play a key role in cellular function by producing enzymes, structural proteins, and signaling molecules.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336899799672291338/Ribosomes-Diagram.png?ex=67a57c76&is=67a42af6&hm=2f177c37df96d97a878fb2e360dbde61fdd9b85f3702bd0ff07db6eac470ff6e&" },
+            { name: "Endoplasmic Reticulum", description: "The endoplasmic reticulum (ER) is a vast network of interconnected membranes involved in protein and lipid synthesis. The rough ER is studded with ribosomes and specializes in protein production, while the smooth ER lacks ribosomes and is involved in lipid metabolism, detoxification, and calcium storage.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336899819867996160/Endoplasmic-Reticulum-ER-Diagram.png?ex=67a57c7b&is=67a42afb&hm=5de15faedc9768ed7928e2acf2c1d62bc554179a8b113086f5fa3d34779895db&" },
+            { name: "Golgi Apparatus", description: "The Golgi apparatus functions as the cell's packaging and distribution center. It modifies, sorts, and packages proteins and lipids for transport to different destinations within the cell or for secretion. The Golgi also plays a role in the production of lysosomes and certain carbohydrates.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336899838280859691/Golgi-apparatus-Golgi-bodies-or-Golgi-complex-Diagram.png?ex=67a57c7f&is=67a42aff&hm=531daac51c91d0c99da9c624e4e92a8f55accff5746c1e18242e8e1ff4dc77a7&" },
+            { name: "Lysosomes", description: "Lysosomes are membrane-bound organelles containing digestive enzymes that break down waste materials, cellular debris, and invading pathogens. They play an essential role in intracellular digestion and recycling, helping to maintain cellular health through autophagy.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336899870778327091/Lysosomes-Diagram.png?ex=67a57c87&is=67a42b07&hm=3e08f09031b3536eb637a7ae18036bc96bc31c44aaa97c0b59f00893d2ed6e93&" },
+            { name: "Vacuole", description: "The vacuole is a large, membrane-bound organelle found in plant and fungal cells, as well as some animal and protist cells. It serves as a storage compartment for water, nutrients, and waste products. In plant cells, the central vacuole maintains cell turgor pressure, which is essential for structural support. Vacuoles also play a role in isolating harmful substances and aiding in cellular digestion.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336900146868523099/Vacuoles-Diagram.png?ex=67a57cc9&is=67a42b49&hm=c1414697ad9eced47d2ee47fd1d9f4f78d35ffede4174c2679a51f6a33fd713f&" },
+            { name: "Cell Membrane", description: "The cell membrane, also known as the plasma membrane, is a selectively permeable barrier that surrounds the cell. It consists of a phospholipid bilayer with embedded proteins, allowing the regulation of substances entering and exiting the cell. It also plays a role in cell communication and signaling.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336900676957110334/Plasma-membrane-Cell-membrane-Diagram.png?ex=67a57d47&is=67a42bc7&hm=2f05d57f0b964cde8e80480a8f4d2f1892c1b37049504bd06c4bb6adbb4810b9&" },
+            { name: "Cytoplasm", description: "The cytoplasm is the gel-like substance that fills the cell, providing a medium for biochemical reactions and supporting organelles. It contains cytosol, enzymes, nutrients, and various cellular structures essential for the cell's functions.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336899725198229614/Cytoplasm-Diagram.png?ex=67a57c64&is=67a42ae4&hm=dadf78b47e96e6ed1a3429c91f1934b420b028aa0fe91baf2fbc2688eabb23b3&" },
+            { name: "Cytoskeleton", description: "The cytoskeleton is a complex network of protein filaments that provides structural support, aids in intracellular transport, and enables cell movement. It consists of microtubules, microfilaments, and intermediate filaments, all working together to maintain cell shape and facilitate cellular processes.", image: "https://cdn.discordapp.com/attachments/856935997787209738/1336899899790196866/Cytoskeleton-Diagram.png?ex=67a57c8e&is=67a42b0e&hm=5d8b49ed5a4881ffd6623d39e51d4679bebf33d1d2875aceed23969418dd1d1d&" }
+    ];
+
+        let currentIndex = 0;
+
+        function updateOrganelle() {
+            const organelle = organelles[currentIndex];
+            document.getElementById('organelles-name').textContent = organelle.name;
+            document.getElementById('organelles-description').textContent = organelle.description;
+            document.getElementById('organelles-image').src = organelle.image;
+        }
+
+        function prevOrganelle() {
+            currentIndex = (currentIndex - 1 + organelles.length) % organelles.length;
+            updateOrganelle();
+        }
+
+        function nextOrganelle() {
+            currentIndex = (currentIndex + 1) % organelles.length;
+            updateOrganelle();
+        }
+
+        updateOrganelle();
+    </script>
+</body>
+</html>
